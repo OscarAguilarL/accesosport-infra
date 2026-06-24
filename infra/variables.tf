@@ -1,0 +1,15 @@
+variable "project" {
+  description = "Prefijo del proyecto para nombrar recursos"
+  type        = string
+  default     = "accesosport"
+}
+
+variable "environment" {
+  type    = string
+  default = "prod"
+}
+
+variable "ssh_allowed_cidr" {
+  description = "IP o rango CIDR desde donde se permite SSH al EC2. Usar /32 para IP fija."
+  type        = string
+}
