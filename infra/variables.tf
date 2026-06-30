@@ -13,3 +13,9 @@ variable "ssh_allowed_cidr" {
   description = "IP o rango CIDR desde donde se permite SSH al EC2. Usar /32 para IP fija."
   type        = string
 }
+
+variable "ec2_public_key" {
+  description = "Clave pública SSH para el EC2 (~/.ssh/accesosport.pub). Nunca la privada."
+  type        = string
+  sensitive   = true
+}

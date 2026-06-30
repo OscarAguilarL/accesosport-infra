@@ -83,6 +83,14 @@ resource "aws_security_group" "ec2" {
   }
 
   ingress {
+    description = "SSH alternativo (puerto 2222) desde IP fija del operador"
+    from_port   = 2222
+    to_port     = 2222
+    protocol    = "tcp"
+    cidr_blocks = [var.ssh_allowed_cidr]
+  }
+
+  ingress {
     description = "HTTP public (Nginx redirige a HTTPS)"
     from_port   = 80
     to_port     = 80
