@@ -55,11 +55,11 @@ resource "aws_iam_instance_profile" "ec2" {
 }
 
 resource "aws_instance" "main" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.instance_type
-  subnet_id              = var.subnet_id
-  vpc_security_group_ids = [var.security_group_id]
-  key_name               = aws_key_pair.main.key_name
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  subnet_id                   = var.subnet_id
+  vpc_security_group_ids      = [var.security_group_id]
+  key_name                    = aws_key_pair.main.key_name
   iam_instance_profile        = aws_iam_instance_profile.ec2.name
   user_data_replace_on_change = true
 
@@ -138,4 +138,21 @@ resource "aws_eip" "main" {
 resource "aws_eip_association" "main" {
   instance_id   = aws_instance.main.id
   allocation_id = aws_eip.main.id
+}
+
+resource "aws_iam_role_policy" "ec2_s3_backup" {
+  name = "${var.project}-ec2-s3-backup"
+  role = aws_iam_role.ec2.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = ["s3:PutObject", "s3:ListBucket"]
+      Resource = [
+        "arn:aws:s3:::${var.backup_bucket_name}",
+        "arn:aws:s3:::${var.backup_bucket_name}/*"
+      ]
+    }]
+  })
 }

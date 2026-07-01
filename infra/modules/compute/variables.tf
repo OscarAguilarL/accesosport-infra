@@ -30,3 +30,8 @@ variable "public_key" {
   type        = string
   sensitive   = true
 }
+
+variable "backup_bucket_name" {
+  description = "Nombre del bucket S3 de backups de PostgreSQL"
+  type        = string
+}
