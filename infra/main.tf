@@ -17,6 +17,23 @@ module "compute" {
   backup_bucket_name = aws_s3_bucket.db_backups.bucket
 }
 
+module "registry" {
+  source = "./modules/registry"
+
+  project     = var.project
+  environment = var.environment
+}
+
+output "ecr_backend_url" {
+  description = "URL del repositorio ECR del backend — usar en deploy/.env"
+  value       = module.registry.backend_repository_url
+}
+
+output "ecr_frontend_url" {
+  description = "URL del repositorio ECR del frontend — usar en deploy/.env"
+  value       = module.registry.frontend_repository_url
+}
+
 resource "aws_s3_bucket" "db_backups" {
   bucket = "accesosport-db-backups"
 

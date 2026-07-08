@@ -1,0 +1,6 @@
+infra_dir: /home/ubuntu/accesosport-infra
+deploy_dir: "{{ infra_dir }}/deploy"
+
+nginx_sites:
+  - accesosport.conf
+  - staging.accesosport.conf

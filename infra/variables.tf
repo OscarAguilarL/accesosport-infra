@@ -19,3 +19,8 @@ variable "ec2_public_key" {
   type        = string
   sensitive   = true
 }
+
+variable "billing_alert_email" {
+  description = "Email para recibir alertas de presupuesto de AWS"
+  type        = string
+}
