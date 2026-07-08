@@ -26,7 +26,7 @@ resource "aws_iam_role" "github_actions" {
         "ForAnyValue:StringLike" = {
           "token.actions.githubusercontent.com:sub" = [
             "repo:OscarAguilarL/accesosport-core:*",
-            "repo:OscarAguilarL/accesosport-backoffice-app_v2:*"
+            "repo:OscarAguilarL/accesosport-app:*"
           ]
         }
         StringEquals = {
