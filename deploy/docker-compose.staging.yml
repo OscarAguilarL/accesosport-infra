@@ -12,6 +12,8 @@ services:
       APP_JWT_SECRET: ${APP_JWT_SECRET_STAGING}
       APP_FRONTEND_URL: ${APP_FRONTEND_URL_STAGING}
       APP_CORS_ALLOWED_ORIGINS: ${APP_CORS_ALLOWED_ORIGINS_STAGING}
+      APP_ENV: staging
+      APP_ADMIN_PASSWORD: ${APP_ADMIN_PASSWORD}
       CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
       CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
@@ -38,6 +40,9 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:3001:3000"
+    environment:
+      BACKEND_URL: http://backend-staging:8080
+      NEXT_PUBLIC_APP_URL: ${APP_FRONTEND_URL_STAGING}
     healthcheck:
       test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000', (r) => process.exit(r.statusCode < 400 ? 0 : 1)).on('error', () => process.exit(1))\""]
       interval: 30s
