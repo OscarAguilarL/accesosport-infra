@@ -69,16 +69,6 @@ resource "aws_iam_role_policy" "github_actions_ecr" {
   })
 }
 
-resource "aws_security_group_rule" "ssh_cicd" {
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  description       = "SSH para GitHub Actions CI/CD"
-  security_group_id = module.networking.sg_ec2_id
-}
-
 output "github_actions_role_arn" {
   description = "ARN del rol IAM — agregar como secret AWS_ROLE_ARN en cada repo de GitHub"
   value       = aws_iam_role.github_actions.arn
