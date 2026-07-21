@@ -24,6 +24,17 @@ module "registry" {
   environment = var.environment
 }
 
+module "dns" {
+  source        = "./modules/dns"
+  project       = var.project
+  ec2_public_ip = module.compute.public_ip
+}
+
+output "nameservers" {
+  description = "Nameservers de Route 53 para configurar en Namecheap → Custom DNS"
+  value       = module.dns.nameservers
+}
+
 output "ecr_backend_url" {
   description = "URL del repositorio ECR del backend — usar en deploy/.env"
   value       = module.registry.backend_repository_url
